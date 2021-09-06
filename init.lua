@@ -10,6 +10,8 @@ local function map(mode,lhs,rhs,opts)
     vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end
 
+cmd [[au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape']]
+
 opt.termguicolors = true
 opt.expandtab = true
 opt.hidden = true
