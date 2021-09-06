@@ -10,7 +10,6 @@ local function map(mode,lhs,rhs,opts)
     vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end
 
-
 opt.termguicolors = true
 opt.expandtab = true
 opt.hidden = true
@@ -20,7 +19,7 @@ opt.relativenumber = true
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
-opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
+opt.listchars = {eol = '↲', tab = '▸ ', trail = '·',space = "⋅"}
 
 vim.o.completeopt = "menu,noselect"
 
@@ -28,14 +27,14 @@ api.nvim_set_keymap('','<Space>','<Nop>',{noremap = true, silent = true})
 
 g.mapleader = ","
 g.maplocalleader = " "
-
 map('n','H','0')
 map('n','L','$')
 map('o','H','0')
 map('o','L','$')
-map('n','Q','<esc>:wq<cr>')
+map('n','Q','<esc>:q<cr>')
 map('n','S','<esc>:w<cr>')
 map('n','y0','0p')
+map('v','Y','"+y')
 
 map('n','<c-j>','<c-w>j')
 map('n','<c-k>','<c-w>k')
@@ -63,6 +62,20 @@ vim.cmd[[colorscheme nord]]
 
 
 map('n','<localleader>e',':NvimTreeToggle<cr>')
-map('n','j','<Plug>(accelerated_jk_gj_position)',{noremap = false})
-map('n','k','<Plug>(accelerated_jk_gk_position)',{noremap = false})
+map('n','j','<Plug>(accelerated_jk_gj)',{noremap = false})
+map('n','k','<Plug>(accelerated_jk_gk)',{noremap = false})
+map('n','<localleader>m','<Plug>NERDCommenterToggle',{noremap = false})
+map('v','<localleader>m','<Plug>NERDCommenterToggle',{noremap = false})
+map('n','<localleader>b',[[:lua require('telescope').extensions.asynctasks.all()<cr>]],{noremap = false})
 
+map('x','ga','<Plug>(EasyAlign)',{noremap = false})
+map('n','ga','<Plug>(EasyAlign)',{noremap = false})
+
+g.wildfire_objects      = {"i'", 'i"', "i)", "i]", "i>","i}","ip","it"}
+
+g.asyncrun_open         = 6
+g.asyncrun_rootmarks    = {'.git','.svn','.root','.project','.hg','.projectile'}
+g.asynctasks_term_pos   = 'right'
+g.asynctasks_term_rows  = 10    -- 设置纵向切割时，高度为 10
+g.asynctasks_term_cols  = 80    -- 设置横向切割时，宽度为 80
+g.asynctasks_term_reuse = 1

@@ -23,6 +23,16 @@ local function init()
   local use = packer.use
   packer.reset()
 
+   -- apperance
+   use {"lukas-reineke/indent-blankline.nvim", config = [[require("config.apperance")]]}
+
+   -- move
+  use 'gcmt/wildfire.vim'
+  use 'tpope/vim-surround'
+  use 'scrooloose/nerdcommenter'
+  use 'rhysd/accelerated-jk'
+  use 'junegunn/vim-easy-align'
+
    -- Search
   use {
     {
@@ -55,6 +65,7 @@ local function init()
     },
   }
 
+  -- lsp
   use {
     'onsails/lspkind-nvim',
     'neovim/nvim-lspconfig',
@@ -63,6 +74,7 @@ local function init()
     'kosayoda/nvim-lightbulb',
   }
 
+  --cmp
   use {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -78,6 +90,12 @@ local function init()
   }
 
 
+  use {
+    'windwp/nvim-autopairs',
+    requires = 'hrsh7th/nvim-cmp',
+    config = [[require('config.autopair')]],
+    after = 'nvim-cmp'
+  }
 
     -- Highlights
   use {
@@ -105,7 +123,18 @@ local function init()
     config = [[require('config.nvim_tree')]],
   }
 
-  use 'rhysd/accelerated-jk'
+  -- tasks
+  use {
+    'GustavoKatel/telescope-asynctasks.nvim',
+    requires = {'skywind3000/asynctasks.vim', 'skywind3000/asyncrun.vim'}
+  }
+
+  -- term
+  use {
+    "akinsho/toggleterm.nvim",
+    config = [[require('config.term')]]
+  }
+
 end
 
 local plugins = setmetatable({}, {

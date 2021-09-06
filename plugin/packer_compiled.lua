@@ -78,6 +78,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/accelerated-jk"
   },
+  ["asyncrun.vim"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/asyncrun.vim"
+  },
+  ["asynctasks.vim"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/asynctasks.vim"
+  },
   ["cmp-buffer"] = {
     after_files = { "/home/lzy/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
     load_after = {
@@ -118,6 +126,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/opt/cmp_luasnip"
   },
+  ["indent-blankline.nvim"] = {
+    config = { 'require("config.apperance")' },
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+  },
   ["lsp_signature.nvim"] = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
@@ -126,9 +139,22 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
   },
+  nerdcommenter = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nerdcommenter"
+  },
   ["nord.nvim"] = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nord.nvim"
+  },
+  ["nvim-autopairs"] = {
+    config = { "require('config.autopair')" },
+    load_after = {
+      ["nvim-cmp"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/opt/nvim-autopairs"
   },
   ["nvim-bufferline.lua"] = {
     config = { "require('config.bufferline')" },
@@ -136,7 +162,7 @@ _G.packer_plugins = {
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
   },
   ["nvim-cmp"] = {
-    after = { "cmp-buffer", "cmp_luasnip", "cmp-path", "cmp-nvim-lua" },
+    after = { "nvim-autopairs", "cmp-nvim-lua", "cmp-buffer", "cmp_luasnip", "cmp-path" },
     config = { "require('config.cmp')" },
     loaded = false,
     needs_bufread = false,
@@ -183,6 +209,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/sql.nvim"
   },
+  ["telescope-asynctasks.nvim"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/telescope-asynctasks.nvim"
+  },
   ["telescope-frecency.nvim"] = {
     load_after = {
       ["telescope.nvim"] = true
@@ -204,9 +234,26 @@ _G.packer_plugins = {
     path = "/home/lzy/.local/share/nvim/site/pack/packer/opt/telescope.nvim",
     wants = { "popup.nvim", "plenary.nvim", "telescope-frecency.nvim", "telescope-fzf-native.nvim" }
   },
+  ["toggleterm.nvim"] = {
+    config = { "require('config.term')" },
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/toggleterm.nvim"
+  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/trouble.nvim"
+  },
+  ["vim-easy-align"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/vim-easy-align"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/vim-surround"
+  },
+  ["wildfire.vim"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/wildfire.vim"
   }
 }
 
@@ -255,6 +302,14 @@ time([[Config for LuaSnip]], false)
 time([[Config for nvim-tree.lua]], true)
 require('config.nvim_tree')
 time([[Config for nvim-tree.lua]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require("config.apperance")
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+require('config.term')
+time([[Config for toggleterm.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
