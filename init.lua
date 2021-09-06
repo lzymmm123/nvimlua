@@ -19,13 +19,14 @@ opt.relativenumber = true
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
+opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
 
 vim.o.completeopt = "menu,noselect"
 
 api.nvim_set_keymap('','<Space>','<Nop>',{noremap = true, silent = true})
 
-g.mapleader = " "
-g.maplocalleader = ","
+g.mapleader = ","
+g.maplocalleader = " "
 
 map('n','H','0')
 map('n','L','$')
@@ -39,11 +40,16 @@ map('n','y0','0p')
 
 -- require("plugins")
 
-cmd [[command! PackerInstall packadd packer.nvim |lua require('plugins').install()]]
+cmd [[command! PackerInstall packadd packer.nvim | lua require('plugins').install()]]
 cmd [[command! PackerUpdate packadd packer.nvim | lua require('plugins').update()]]
 cmd [[command! PackerSync packadd packer.nvim | lua require('plugins').sync()]]
 cmd [[command! PackerClean packadd packer.nvim | lua require('plugins').clean()]]
 cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
 
 vim.cmd[[colorscheme nord]]
+
+
+map('n','<localleader>e',':NvimTreeToggle<cr>')
+map('n','j','<Plug>(accelerated_jk_gj_position)',{noremap = false})
+map('n','k','<Plug>(accelerated_jk_gk_position)',{noremap = false})
 

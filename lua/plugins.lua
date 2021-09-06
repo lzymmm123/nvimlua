@@ -89,6 +89,22 @@ local function init()
   }
 
   use 'shaunsingh/nord.nvim'
+
+  use {
+    'akinsho/nvim-bufferline.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = [[require('config.bufferline')]],
+    -- event = 'User ActuallyEditing',
+    opt = false,
+  }
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = [[require('config.nvim_tree')]],
+  }
+
+  use 'rhysd/accelerated-jk'
 end
 
 local plugins = setmetatable({}, {

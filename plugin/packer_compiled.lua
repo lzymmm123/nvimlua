@@ -44,8 +44,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/lzy/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/lzy/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/lzy/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/lzy/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/lzy/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
+local package_path_str = "/home/lzy/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/lzy/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/lzy/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/lzy/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/lzy/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -72,6 +72,10 @@ _G.packer_plugins = {
   LuaSnip = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/LuaSnip"
+  },
+  ["accelerated-jk"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/accelerated-jk"
   },
   ["cmp-buffer"] = {
     after_files = { "/home/lzy/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
@@ -125,6 +129,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nord.nvim"
   },
+  ["nvim-bufferline.lua"] = {
+    config = { "require('config.bufferline')" },
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
+  },
   ["nvim-cmp"] = {
     after = { "cmp-buffer", "cmp_luasnip", "cmp-path", "cmp-nvim-lua" },
     config = { "require('config.cmp')" },
@@ -140,6 +149,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
+  ["nvim-tree.lua"] = {
+    config = { "require('config.nvim_tree')" },
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
@@ -151,6 +165,10 @@ _G.packer_plugins = {
   ["nvim-treesitter-textobjects"] = {
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/home/lzy/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -224,6 +242,14 @@ end
 time([[Setup for telescope.nvim]], true)
 require('config.telescope_setup')
 time([[Setup for telescope.nvim]], false)
+-- Config for: nvim-bufferline.lua
+time([[Config for nvim-bufferline.lua]], true)
+require('config.bufferline')
+time([[Config for nvim-bufferline.lua]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+require('config.nvim_tree')
+time([[Config for nvim-tree.lua]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
