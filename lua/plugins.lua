@@ -10,6 +10,7 @@ vim.cmd [[packadd packer.nvim]]
 
 -- vim._update_package_paths()
 --
+--
 
 
 local packer = nil
@@ -21,7 +22,6 @@ local function init()
 
   local use = packer.use
   packer.reset()
-
 
    -- Search
   use {
@@ -66,16 +66,17 @@ local function init()
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      'L3MON4D3/LuaSnip',
+      {'L3MON4D3/LuaSnip',config = [[require('config.snips')]]},
+      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
       'hrsh7th/cmp-nvim-lsp',
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
     },
     config = [[require('config.cmp')]],
     event = 'InsertEnter *',
   }
+
 
 
     -- Highlights

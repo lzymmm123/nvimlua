@@ -70,6 +70,7 @@ time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   LuaSnip = {
+    config = { "require('config.snips')" },
     loaded = true,
     path = "/home/lzy/.local/share/nvim/site/pack/packer/start/LuaSnip"
   },
@@ -246,6 +247,10 @@ time([[Setup for telescope.nvim]], false)
 time([[Config for nvim-bufferline.lua]], true)
 require('config.bufferline')
 time([[Config for nvim-bufferline.lua]], false)
+-- Config for: LuaSnip
+time([[Config for LuaSnip]], true)
+require('config.snips')
+time([[Config for LuaSnip]], false)
 -- Config for: nvim-tree.lua
 time([[Config for nvim-tree.lua]], true)
 require('config.nvim_tree')

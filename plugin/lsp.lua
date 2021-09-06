@@ -143,6 +143,7 @@ local servers = {
   },
   tsserver = {},
   vimls = {},
+  gopls = {},
 }
 
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()

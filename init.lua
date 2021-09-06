@@ -10,6 +10,7 @@ local function map(mode,lhs,rhs,opts)
     vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end
 
+
 opt.termguicolors = true
 opt.expandtab = true
 opt.hidden = true
@@ -32,10 +33,22 @@ map('n','H','0')
 map('n','L','$')
 map('o','H','0')
 map('o','L','$')
+map('n','Q','<esc>:wq<cr>')
 map('n','S','<esc>:w<cr>')
-map('n','Q',':wq<cr>')
-
 map('n','y0','0p')
+
+map('n','<c-j>','<c-w>j')
+map('n','<c-k>','<c-w>k')
+map('n','<c-h>','<c-w>h')
+map('n','<c-l>','<c-w>l')
+map('n','<c-p>','<c-w>p')
+
+map('n','s','<nop>')
+map('n','sk',':set nosplitbelow<CR>:split<CR>:set splitbelow<CR>')
+map('n','sj',':set splitbelow<CR>:split<CR>')
+map('n','sh',':set nosplitright<CR>:vsplit<CR>:set splitright<CR>')
+map('n','sl',':set splitright<CR>:vsplit<CR>')
+
 
 
 -- require("plugins")
