@@ -394,6 +394,9 @@ ls.snippets = {
     s("leet", {
       t({"#include<iostream>","#include<algorithm>","#include<vector>","#include<numeric>","#include<map>","#include<set>","#include<unordered_map>","#include<unordered_set>","#include<functional>","#include<string>" })
     }),
+    s("main", {
+      t({"int main(int argv, char* argc[]){","}"}),
+    }),
   }
 }
 
