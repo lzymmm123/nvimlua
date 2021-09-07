@@ -105,6 +105,7 @@ local function init()
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     run = ':TSUpdate',
+    config = [[require('config.treesitter')]]
   }
 
   use 'shaunsingh/nord.nvim'
