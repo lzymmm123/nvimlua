@@ -101,7 +101,8 @@ local servers = {
   --   return require('lua-dev').setup({lspconfig = {cmd = {'lua-language-server'}}})
   -- end,
   sumneko_lua = {
-    cmd = { 'lua-language-server' },
+    --cmd = { 'lua-language-server' },
+    cmd = { '/home/lzy/Code/github-downloads/lua-language-server/bin/Linux/lua-language-server' , "-E", "/home/lzy/Code/github-downloads/lua-language-server/main.lua"},
     settings = {
       Lua = {
         diagnostics = { globals = { 'vim' } },
