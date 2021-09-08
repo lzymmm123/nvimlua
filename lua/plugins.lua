@@ -23,6 +23,8 @@ local function init()
   local use = packer.use
   packer.reset()
 
+   use 'wbthomason/packer.nvim'
+
    -- apperance
    use {"lukas-reineke/indent-blankline.nvim", config = [[require("config.apperance")]]}
 
@@ -32,6 +34,7 @@ local function init()
   use 'scrooloose/nerdcommenter'
   use 'rhysd/accelerated-jk'
   use 'junegunn/vim-easy-align'
+  use 'matze/vim-move'
 
    -- Search
   use {
