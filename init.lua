@@ -99,3 +99,7 @@ end
 vim.cmd[[imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]
 vim.cmd[[vmap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]
 vim.cmd[[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]
+
+
+vim.cmd[[nmap <silent> <localleader>t <Plug>TranslateW]]
+vim.cmd[[vmap <silent> <localleader>t <Plug>TranslateWV]]

@@ -144,6 +144,8 @@ local function init()
     config = [[require('config.term')]]
   }
 
+  use 'voldikss/vim-translator'
+
 end
 
 local plugins = setmetatable({}, {
