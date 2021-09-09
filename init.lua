@@ -25,7 +25,7 @@ opt.relativenumber = true
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
-opt.listchars = {eol = '↲', tab = '▸ ', trail = '·',space = "⋅"}
+opt.listchars = {eol = '↲', tab = '▸ ', trail = ' ',space = ' '}
 
 vim.o.completeopt = "menu,noselect"
 

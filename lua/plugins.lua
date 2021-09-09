@@ -26,7 +26,12 @@ local function init()
    use 'wbthomason/packer.nvim'
 
    -- apperance
-   use {"lukas-reineke/indent-blankline.nvim", config = [[require("config.apperance")]]}
+  use {"lukas-reineke/indent-blankline.nvim", config = [[require("config.apperance")]]}
+  use {
+    'hoob3rt/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = [[require('lualine').setup{options= {theme='nord'}}]]
+  }
 
    -- move
   use 'gcmt/wildfire.vim'
