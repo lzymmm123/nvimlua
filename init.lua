@@ -10,6 +10,10 @@ local function map(mode,lhs,rhs,opts)
     vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end
 
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 cmd [[au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape']]
 
 opt.termguicolors = true
@@ -81,3 +85,17 @@ g.asynctasks_term_pos   = 'right'
 g.asynctasks_term_rows  = 10    -- 设置纵向切割时，高度为 10
 g.asynctasks_term_cols  = 80    -- 设置横向切割时，宽度为 80
 g.asynctasks_term_reuse = 1
+
+
+local function luasnip_choice()
+    local snip = require('luasnip')
+    if snip.choice_active() then
+        print("yes")
+        return t '<Plug>luasnip-next-choice'
+    end
+    return t "<C-E>"
+end
+
+vim.cmd[[imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]
+vim.cmd[[vmap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]
+vim.cmd[[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]

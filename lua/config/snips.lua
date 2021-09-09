@@ -163,6 +163,11 @@ ls.snippets = {
 	--     - luasnip.all
 	-- are searched in that order.
 	all = {
+    s("ts", c(1, {
+      t("Ugh boring, a text node"),
+      i(nil, "At least I can edit something now..."),
+      f(function(args) return "Still only counts as text!!" end, {})
+     })),
 		-- trigger is fn.
 		s("fn", {
 			-- Simple static text.
@@ -250,7 +255,7 @@ ls.snippets = {
 			end, {})
 		),
 		-- Use a function to execute any shell command and print its text.
-		s("bash", f(bash, {}, "ls")),
+		s("bash", {t(""),i(2), f(bash, {2}, "ls"),i(1)}),
 		-- Short version for applying String transformations using function nodes.
 		s("transform", {
 			i(1, "initial text"),
@@ -391,14 +396,21 @@ ls.snippets = {
 	},
 
   cpp = {
-    s("leet", {
-      t({"#include<iostream>","#include<algorithm>","#include<vector>","#include<numeric>","#include<map>","#include<set>","#include<unordered_map>","#include<unordered_set>","#include<functional>","#include<string>" })
-    }),
-    s("main", {
-      t({"int main(int argv, char* argc[]){","}"}),
-    }),
-  }
+  },
 }
+
+local function snip_merge(filetype) 
+  local snip = require('config.snippets.' .. filetype)
+  if ls.snippets[filetype] == nil then
+    ls.snippets[filetype] = {}
+  end
+  if snip == nil then
+    return
+  end
+  table.foreach(snip,function(_,v) table.insert(ls.snippets[filetype],v) end)
+end
+snip_merge('cpp')
+snip_merge('c')
 
 -- autotriggered snippets have to be defined in a separate table, luasnip.autosnippets.
 ls.autosnippets = {

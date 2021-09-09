@@ -17,6 +17,11 @@ local snippet_next_keys = replace_termcodes('<plug>luasnip-expand-or-jump', true
 local snippet_prev_keys = replace_termcodes('<plug>luasnip-jump-prev', true, true, true)
 
 
+luasnip.config.setup{
+  --region_check_events = "CursorMoved",
+  delete_check_events = "TextChanged",
+}
+
 cmp.setup {
   snippet = {
     expand = function(args)
