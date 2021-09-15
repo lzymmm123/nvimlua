@@ -34,6 +34,11 @@ ls.config.set_config({
 	enable_autosnippets = true,
 })
 
+ls.config.setup({
+  store_selection_keys = "<Tab>"
+})
+
+
 -- args is a table, where 1 is the text in Placeholder 1, 2 the text in
 -- placeholder 2,...
 local function copy(args)
@@ -138,12 +143,14 @@ local function jdocsnip(args, old_state)
 end
 
 -- Make sure to not pass an invalid command, as io.popen() may write over nvim-text.
-local function bash(_, command)
-	local file = io.popen(command, "r")
-	local res = {}
-	for line in file:lines() do
-		table.insert(res, line)
-	end
+local function bash(args, command)
+  local com = args[2].captures[1]
+  --print(vim.inspect(args[2]))
+  local file = io.popen(com, "r")
+  local res = {}
+  for line in file:lines() do
+    table.insert(res, line)
+  end
 	return res
 end
 
@@ -163,66 +170,10 @@ ls.snippets = {
 	--     - luasnip.all
 	-- are searched in that order.
 	all = {
-    s("ts", c(1, {
-      t("Ugh boring, a text node"),
-      i(nil, "At least I can edit something now..."),
-      f(function(args) return "Still only counts as text!!" end, {})
-     })),
 		-- trigger is fn.
-		s("fn", {
-			-- Simple static text.
-			t("//Parameters: "),
-			-- function, first parameter is the function, second the Placeholders
-			-- whose text it gets as input.
-			f(copy, 2),
-			t({ "", "function " }),
-			-- Placeholder/Insert.
-			i(1),
-			t("("),
-			-- Placeholder with initial text.
-			i(2, "int foo"),
-			-- Linebreak
-			t({ ") {", "\t" }),
-			-- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
-			i(0),
-			t({ "", "}" }),
-		}),
-		s("class", {
-			-- Choice: Switch between two different Nodes, first parameter is its position, second a list of nodes.
-			c(1, {
-				t("public "),
-				t("private "),
-			}),
-			t("class "),
-			i(2),
-			t(" "),
-			c(3, {
-				t("{"),
-				-- sn: Nested Snippet. Instead of a trigger, it has a position, just like insert-nodes. !!! These don't expect a 0-node!!!!
-				-- Inside Choices, Nodes don't need a position as the choice node is the one being jumped to.
-				sn(nil, {
-					t("extends "),
-					i(1),
-					t(" {"),
-				}),
-				sn(nil, {
-					t("implements "),
-					i(1),
-					t(" {"),
-				}),
-			}),
-			t({ "", "\t" }),
-			i(0),
-			t({ "", "}" }),
-		}),
 		-- Use a dynamic_node to interpolate the output of a
 		-- function (see date_input above) into the initial
 		-- value of an insert_node.
-		s("novel", {
-			t("It was a dark and stormy night on "),
-			d(1, date_input, {}, "%A, %B %d of %Y"),
-			t(" and the clocks were striking thirteen."),
-		}),
 		-- Parsing snippets: First parameter: Snippet-Trigger, Second: Snippet body.
 		-- Placeholders are parsed into choices with 1. the placeholder text(as a snippet) and 2. an empty string.
 		-- This means they are not SELECTed like in other editors/Snippet engines.
@@ -238,24 +189,12 @@ ls.snippets = {
 		),
 
 		-- When regTrig is set, trig is treated like a pattern, this snippet will expand after any number.
-		ls.parser.parse_snippet({ trig = "%d", regTrig = true }, "A Number!!"),
+		--ls.parser.parse_snippet({ trig = "%d", regTrig = true }, "A Number!!"),
 
 		-- The last entry of args passed to the user-function is the surrounding snippet.
-		s(
-			{ trig = "a%d", regTrig = true },
-			f(function(args)
-				return "Triggered with " .. args[1].trigger .. "."
-			end, {})
-		),
 		-- It's possible to use capture-groups inside regex-triggers.
-		s(
-			{ trig = "b(%d)", regTrig = true },
-			f(function(args)
-				return "Captured Text: " .. args[1].captures[1] .. "."
-			end, {})
-		),
 		-- Use a function to execute any shell command and print its text.
-		s("bash", {t(""),i(2), f(bash, {2}, "ls"),i(1)}),
+		s({trig = "sh(%w*)", regTrig = true}, {t(""),i(2), f(bash, {2}, "ls"),i(1)}),
 		-- Short version for applying String transformations using function nodes.
 		s("transform", {
 			i(1, "initial text"),
