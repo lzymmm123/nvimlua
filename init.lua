@@ -37,10 +37,15 @@ map('n','H','0')
 map('n','L','$')
 map('o','H','0')
 map('o','L','$')
+map('x','H','0')
+map('x','L','$')
+map('n','m','g*')
 map('n','Q','<esc>:q<cr>')
 map('n','S','<esc>:w<cr>')
 map('n','y0','0p')
 map('v','Y','"+y')
+
+map('n','<localleader><cr>',':nohl<cr>')
 
 map('n','<c-j>','<c-w>j')
 map('n','<c-k>','<c-w>k')
@@ -103,3 +108,12 @@ vim.cmd[[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next
 
 vim.cmd[[nmap <silent> <localleader>t <Plug>TranslateW]]
 vim.cmd[[vmap <silent> <localleader>t <Plug>TranslateWV]]
+
+
+local function matchstr(...)
+  local ok, ret = pcall(fn.matchstr, ...)
+  if ok then
+    return ret
+  end
+  return ""
+end

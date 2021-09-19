@@ -146,6 +146,17 @@ local function init()
 
   use 'voldikss/vim-translator'
 
+  -- git
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
 end
 
 local plugins = setmetatable({}, {

@@ -39,7 +39,7 @@ sign_define('LspDiagnosticsSignInformation', { text = '', numhl = 'WhiteSign' })
 sign_define('LspDiagnosticsSignHint', { text = '', numhl = 'BlueSign' })
 
 
-require('lsp_signature').setup { bind = true, handler_opts = { border = 'single' } }
+require('lsp_signature').setup { bind = true, handler_opts = { border = 'single' }, floating_window = false}
 local keymap_opts = { noremap = true, silent = true }
 local function on_attach(client)
   require('lsp_signature').on_attach { bind = true, handler_opts = { border = 'single' } }
