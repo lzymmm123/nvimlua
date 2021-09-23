@@ -22,7 +22,12 @@ luasnip.config.setup{
   delete_check_events = "TextChanged",
 }
 
+vim.o.completeopt = "menu,noselect"
+
 cmp.setup {
+  --completion = {
+    --completeopt = "menu,menuone,noinsert"
+  --},
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -35,7 +40,7 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<cr>'] = cmp.mapping.confirm(),
+    ['<cr>'] = cmp.mapping.confirm({ select = true ,behavior = cmp.ConfirmBehavior.Replace}),
     ['<tab>'] = cmp.mapping(function(fallback)
       if pumvisible() == 1 then
         feedkeys(next_item_keys, 'n')

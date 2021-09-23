@@ -31,8 +31,8 @@ vim.g.nvim_tree_icons = {
 }
     -- default mappings
 vim.g.nvim_tree_bindings = {
-  { key = {"<CR>", "o", "<2-LeftMouse>","l"}, cb = tree_cb("edit") },
-  { key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
+  { key = {"o", "<2-LeftMouse>","l"}, cb = tree_cb("edit") },
+  { key = {"<2-RightMouse>", "<C-]>","<CR>"},    cb = tree_cb("cd") },
   { key = "<C-v>",                        cb = tree_cb("vsplit") },
   { key = "<C-x>",                        cb = tree_cb("split") },
   { key = "<C-t>",                        cb = tree_cb("tabnew") },

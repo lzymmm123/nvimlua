@@ -5,7 +5,7 @@ telescope.setup {
     scroll_strategy = 'cycle',
   },
   extensions = {
-    frecency = { workspaces = { exo = '/home/wil/projects/research/exoplanet' } },
+    frecency = { workspaces = {} },
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
@@ -28,3 +28,5 @@ telescope.setup {
 -- Extensions
 telescope.load_extension 'frecency'
 telescope.load_extension 'fzf'
+
+telescope.load_extension 'neoclip'

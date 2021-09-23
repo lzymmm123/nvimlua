@@ -19,7 +19,7 @@ local types = require("luasnip.util.types")
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
-	updateevents = "TextChanged,TextChangedI",
+	updateevents = "TextChanged",
 	ext_opts = {
 		[types.choiceNode] = {
 			active = {
@@ -211,10 +211,10 @@ ls.snippets = {
 			-- Lambdas can also apply transforms USING the text of other nodes:
 			l(l._1:gsub("e", l._2), { 1, 2 }),
 		}),
-		s({ trig = "trafo(%d+)", regTrig = true }, {
-			-- env-variables and captures can also be used:
-			l(l.CAPTURE1:gsub("1", l.TM_FILENAME), {}),
-		}),
+		--s({ trig = "trafo(%d+)", regTrig = true }, {
+			---- env-variables and captures can also be used:
+			--l(l.CAPTURE1:gsub("1", l.TM_FILENAME), {}),
+		--}),
 		-- Set store_selection_keys = "<Tab>" (for example) in your
 		-- luasnip.config.setup() call to access TM_SELECTED_TEXT. In
 		-- this case, select a URL, hit Tab, then expand this snippet.
@@ -336,6 +336,7 @@ ls.snippets = {
 
   cpp = {
   },
+  go = {}
 }
 
 local function snip_merge(filetype) 
@@ -350,6 +351,7 @@ local function snip_merge(filetype)
 end
 snip_merge('cpp')
 snip_merge('c')
+snip_merge('go')
 
 -- autotriggered snippets have to be defined in a separate table, luasnip.autosnippets.
 ls.autosnippets = {
