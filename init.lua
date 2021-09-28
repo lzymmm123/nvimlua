@@ -16,12 +16,12 @@ end
 
 cmd [[au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape']]
 
-opt.termguicolors = true
 opt.expandtab = true
+opt.termguicolors = true
 opt.hidden = true
 opt.list = true
 opt.number = true
-opt.relativenumber = true
+--opt.relativenumber = true
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
@@ -108,6 +108,8 @@ vim.cmd[[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next
 
 vim.cmd[[nmap <silent> <localleader>t <Plug>TranslateW]]
 vim.cmd[[vmap <silent> <localleader>t <Plug>TranslateWV]]
+
+vim.cmd[[nmap <silent> <localleader>y :Telescope neoclip<cr>]]
 
 
 local function matchstr(...)

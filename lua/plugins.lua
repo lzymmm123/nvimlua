@@ -41,6 +41,13 @@ local function init()
   use 'junegunn/vim-easy-align'
   use 'matze/vim-move'
 
+  -- yank
+  use {
+    "AckslD/nvim-neoclip.lua",
+    config = function()
+        require('neoclip').setup()
+    end,
+  }
    -- Search
   use {
     {
@@ -50,6 +57,7 @@ local function init()
         'nvim-lua/plenary.nvim',
         'telescope-frecency.nvim',
         'telescope-fzf-native.nvim',
+        "AckslD/nvim-neoclip.lua",
       },
       wants = {
         'popup.nvim',
@@ -156,6 +164,7 @@ local function init()
       require('gitsigns').setup()
     end
   }
+
 
 end
 
