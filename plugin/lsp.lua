@@ -142,19 +142,19 @@ local servers = {
       },
     },
   },
-  --tsserver = {},
+  tsserver = {},
   vimls = {},
   gopls = {},
-  denols = {
-    cmd = {"deno", "lsp"},
-    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-    init_options = {
-      enable = true,
-      lint = false,
-      unstable = false
-    },
-    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git")
-  },
+  --denols = {
+    --cmd = {"deno", "lsp"},
+    --filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+    --init_options = {
+      --enable = true,
+      --lint = false,
+      --unstable = false
+    --},
+    --root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git")
+  --},
 }
 
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()

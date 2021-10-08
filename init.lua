@@ -82,6 +82,18 @@ map('n','<localleader>b',[[:lua require('telescope').extensions.asynctasks.all()
 map('x','ga','<Plug>(EasyAlign)',{noremap = false})
 map('n','ga','<Plug>(EasyAlign)',{noremap = false})
 
+
+map('n', ';c',':HopChar1<cr>')
+map('n', ';w',':HopChar2<cr>')
+map('n', ';p',':HopPattern<cr>')
+map('n', ';l',':HopLine<cr>')
+map('o', ';c',':HopChar1<cr>')
+map('o', ';w',':HopChar2<cr>')
+map('o', ';p',':HopPattern<cr>')
+map('o', ';l',':HopLine<cr>')
+map('v', ';c',[[<cmd>lua require('hop').hint_words()<CR>]])
+
+
 g.wildfire_objects      = {"i'", 'i"', "i)", "i]", "i>","i}","ip","it"}
 
 g.asyncrun_open         = 6
@@ -110,6 +122,7 @@ vim.cmd[[nmap <silent> <localleader>t <Plug>TranslateW]]
 vim.cmd[[vmap <silent> <localleader>t <Plug>TranslateWV]]
 
 vim.cmd[[nmap <silent> <localleader>y :Telescope neoclip<cr>]]
+
 
 
 local function matchstr(...)
