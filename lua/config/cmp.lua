@@ -22,7 +22,7 @@ luasnip.config.setup{
   delete_check_events = "TextChanged",
 }
 
-vim.o.completeopt = "menu,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 cmp.setup {
   --completion = {
@@ -40,10 +40,9 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<cr>'] = cmp.mapping.confirm({ select = true ,behavior = cmp.ConfirmBehavior.Replace}),
-    ['<tab>'] = cmp.mapping(function(fallback)
-      if pumvisible() == 1 then
-        feedkeys(next_item_keys, 'n')
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
       elseif luasnip.expand_or_jumpable() then
         feedkeys(snippet_next_keys, '')
       elseif check_backspace() then
@@ -51,23 +50,29 @@ cmp.setup {
       else
         fallback()
       end
-    end, {
-      'i',
-      's',
+    end,{"i","s"}),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        feedkeys(snippet_prev_keys, '')
+      else
+        fallback()
+      end
+    end,{"i","s"}),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
     }),
   },
-  ['<s-tab>'] = cmp.mapping(function(fallback)
-    if pumvisible() == 1 then
-      feedkeys(prev_item_keys, 'n')
-    elseif luasnip.jumpable(-1) then
-      feedkeys(snippet_prev_keys, '')
-    else
-      fallback()
-    end
-  end, {
-    'i',
-    's',
-  }),
   sources = {
     { name = 'buffer' },
     { name = 'nvim_lsp' },
