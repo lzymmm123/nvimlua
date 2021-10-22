@@ -78,6 +78,8 @@ map('n','k','<Plug>(accelerated_jk_gk)',{noremap = false})
 map('n','<localleader>m','<Plug>NERDCommenterToggle',{noremap = false})
 map('v','<localleader>m','<Plug>NERDCommenterToggle',{noremap = false})
 map('n','<localleader>b',[[:lua require('telescope').extensions.asynctasks.all()<cr>]],{noremap = false})
+map('n', '<localleader><localleader>', [[<cmd>Telescope<cr>]])
+map('n', '<localleader>d', [[<cmd>Telescope lsp_workspace_diagnostics<cr>]])
 
 map('x','ga','<Plug>(EasyAlign)',{noremap = false})
 map('n','ga','<Plug>(EasyAlign)',{noremap = false})
