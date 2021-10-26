@@ -173,6 +173,9 @@ local function init()
     end
   }
 
+  -- dev
+  use 'MunifTanjim/nui.nvim'
+
 
 end
 

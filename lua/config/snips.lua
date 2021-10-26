@@ -194,7 +194,7 @@ ls.snippets = {
 		-- The last entry of args passed to the user-function is the surrounding snippet.
 		-- It's possible to use capture-groups inside regex-triggers.
 		-- Use a function to execute any shell command and print its text.
-		s({trig = "sh(%w*)", regTrig = true}, {t(""),i(2), f(bash, {2}, "ls"),i(1)}),
+		--s({trig = "sh(%w*)", regTrig = true}, {t(""),i(2), f(bash, {2}, "ls"),i(1)}),
 		-- Short version for applying String transformations using function nodes.
 		s("transform", {
 			i(1, "initial text"),

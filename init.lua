@@ -134,3 +134,6 @@ local function matchstr(...)
   end
   return ""
 end
+
+vim.cmd[[nmap <silent> cp <cmd>lua require("tools").replace()<cr>]]
+
