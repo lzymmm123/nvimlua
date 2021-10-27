@@ -89,6 +89,6 @@ bufferline.setup {
 
 local opts = { silent = true, nowait = true }
 map('n', 'gb', '<cmd>BufferLinePick<cr>', opts)
-map('n', '<leader>d', '<cmd>bdelete!<cr>', opts)
+map('n', '<leader>d', '<cmd>Bdelete<cr>', opts)
 map('n', '<Tab>', ':BufferLineCycleNext<cr>', opts)
 map('n', '<S-Tab>', ':BufferLineCyclePrev<cr>', opts)

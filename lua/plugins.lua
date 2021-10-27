@@ -136,7 +136,10 @@ local function init()
 
   use {
     'akinsho/nvim-bufferline.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+      'famiu/bufdelete.nvim',
+    },
     config = [[require('config.bufferline')]],
     -- event = 'User ActuallyEditing',
     opt = false,
