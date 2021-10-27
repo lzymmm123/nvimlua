@@ -148,6 +148,12 @@ local function init()
     config = [[require('config.nvim_tree')]],
   }
 
+  use {
+    'tamago324/lir.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = [[require('config.lir')]],
+  }
+
   -- tasks
   use {
     'GustavoKatel/telescope-asynctasks.nvim',

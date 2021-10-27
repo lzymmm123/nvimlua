@@ -93,7 +93,8 @@ map('o', ';c',':HopChar1<cr>')
 map('o', ';w',':HopChar2<cr>')
 map('o', ';p',':HopPattern<cr>')
 map('o', ';l',':HopLine<cr>')
-map('v', ';c',[[<cmd>lua require('hop').hint_words()<CR>]])
+map('o', 'f', ':HopChar1Line<cr>')
+map('v', 'f',[[<cmd>lua require('hop').hint_words()<CR>]])
 
 
 g.wildfire_objects      = {"i'", 'i"', "i)", "i]", "i>","i}","ip","it"}
