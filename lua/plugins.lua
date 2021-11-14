@@ -108,6 +108,7 @@ local function init()
       'hrsh7th/cmp-nvim-lsp',
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+      { 'lukas-reineke/cmp-rg' }
     },
     config = [[require('config.cmp')]],
     event = 'InsertEnter *',
