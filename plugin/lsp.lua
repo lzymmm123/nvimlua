@@ -145,6 +145,7 @@ local servers = {
   tsserver = {},
   vimls = {},
   gopls = {},
+  cmake = {},
   --denols = {
     --cmd = {"deno", "lsp"},
     --filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
