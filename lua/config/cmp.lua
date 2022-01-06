@@ -79,6 +79,6 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'rg' },
-    { name = 'nvim_lua' },
+    --{ name = 'nvim_lua' },
   },
 }

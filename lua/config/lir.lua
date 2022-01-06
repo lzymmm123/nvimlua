@@ -20,12 +20,13 @@ require'lir'.setup {
     ['@']     = actions.cd,
     ['Y']     = actions.yank_path,
     ['.']     = actions.toggle_show_hidden,
-    ['D']     = actions.delete,
+    ['d']     = actions.delete,
 
     ['J'] = function()
       mark_actions.toggle_mark()
       vim.cmd('normal! j')
     end,
+    ['D']     = mark_actions.delete,
     ['C'] = clipboard_actions.copy,
     ['X'] = clipboard_actions.cut,
     ['P'] = clipboard_actions.paste,
@@ -77,3 +78,5 @@ vim.cmd [[augroup lir-settings]]
 vim.cmd [[  autocmd!]]
 vim.cmd [[  autocmd Filetype lir :lua LirSettings()]]
 vim.cmd [[augroup END]]
+
+--vim.cmd[[nmap <silent> <localleader>e :lua require'lir.float'.toggle()<cr>]]

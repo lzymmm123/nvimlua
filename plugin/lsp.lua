@@ -162,7 +162,7 @@ client_capabilities.textDocument.completion.completionItem.snippetSupport = true
 client_capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = { 'documentation', 'detail', 'additionalTextEdits' },
 }
-client_capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
+--client_capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
 
 for server, config in pairs(servers) do
   if type(config) == 'function' then

@@ -33,7 +33,7 @@ local function init()
     config = [[require('lualine').setup{options= {theme='nord'}}]]
   }
 
-   -- move
+    --move
   use 'gcmt/wildfire.vim'
   use 'tpope/vim-surround'
   use 'scrooloose/nerdcommenter'
@@ -53,7 +53,7 @@ local function init()
   use {
     "AckslD/nvim-neoclip.lua",
     config = function()
-        require('neoclip').setup()
+      require('neoclip').setup()
     end,
   }
    -- Search
@@ -98,16 +98,16 @@ local function init()
     'kosayoda/nvim-lightbulb',
   }
 
-  --cmp
+  ----cmp
   use {
     'hrsh7th/nvim-cmp',
     requires = {
       {'L3MON4D3/LuaSnip',config = [[require('config.snips')]]},
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-      'hrsh7th/cmp-nvim-lsp',
+      {'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp'},
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+      --{ 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
       { 'lukas-reineke/cmp-rg' }
     },
     config = [[require('config.cmp')]],
@@ -158,13 +158,20 @@ local function init()
     config = [[require('config.lir')]],
   }
 
-  -- tasks
+  --use {
+    --'ms-jpq/chadtree',
+    --branch = "chad",
+    --run = 'python3 -m chadtree deps',
+    --config = [[require('config.chad')]]
+  --}
+
+  ---- tasks
   use {
     'GustavoKatel/telescope-asynctasks.nvim',
     requires = {'skywind3000/asynctasks.vim', 'skywind3000/asyncrun.vim'}
   }
 
-  -- term
+  ---- term
   use {
     "akinsho/toggleterm.nvim",
     config = [[require('config.term')]]
@@ -172,18 +179,16 @@ local function init()
 
   use 'voldikss/vim-translator'
 
-  -- git
+  ---- git
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
       'nvim-lua/plenary.nvim'
     },
-    config = function()
-      require('gitsigns').setup()
-    end
+    config = [[require('config.gitsigns')]],
   }
 
-  -- dev
+  ---- dev
   use 'MunifTanjim/nui.nvim'
 
 

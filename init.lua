@@ -28,6 +28,8 @@ opt.tabstop = 2
 opt.listchars = {eol = '↲', tab = '▸ ', trail = ' ',space = ' '}
 
 vim.o.completeopt = "menu,noselect"
+opt.timeoutlen=1000
+opt.ttimeoutlen=0
 
 api.nvim_set_keymap('','<Space>','<Nop>',{noremap = true, silent = true})
 
@@ -57,7 +59,11 @@ map('n','s','<nop>')
 map('n','sk',':set nosplitbelow<CR>:split<CR>:set splitbelow<CR>')
 map('n','sj',':set splitbelow<CR>:split<CR>')
 map('n','sh',':set nosplitright<CR>:vsplit<CR>:set splitright<CR>')
-map('n','sl',':set splitright<CR>:vsplit<CR>')
+map('n', 'sl',':set splitright<CR>:vsplit<CR>')
+map('n', '<leader><up>', ':res +5<cr>')
+map('n', '<leader><down>',  ':res -5<cr>')
+map('n', '<leader><left>',  ':vertical resize-5<cr>')
+map('n', '<leader><right>', ':vertical resize+5<cr>')
 
 
 
@@ -139,3 +145,5 @@ end
 vim.cmd[[nmap <silent> cp <cmd>lua require("tools").replace()<cr>]]
 vim.cmd[[vmap <silent> cp <cmd>lua require("tools").replace()<cr>]]
 
+
+--vim.cmd[[nmap <silent> <localleader>e :NvimTreeToggle<cr>]]

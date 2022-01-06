@@ -66,6 +66,10 @@ local list = {
 }
 
 require'nvim-tree'.setup {
+  git = {
+    enable = false,
+    timeout = 400
+  },
   view = {
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 30,
