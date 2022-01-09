@@ -85,7 +85,7 @@ map('n','<localleader>m','<Plug>NERDCommenterToggle',{noremap = false})
 map('v','<localleader>m','<Plug>NERDCommenterToggle',{noremap = false})
 map('n','<localleader>b',[[:lua require('telescope').extensions.asynctasks.all()<cr>]],{noremap = false})
 map('n', '<localleader><localleader>', [[<cmd>Telescope<cr>]])
-map('n', '<localleader>d', [[<cmd>Telescope lsp_workspace_diagnostics<cr>]])
+map('n', '<localleader>d', [[<cmd>Telescope diagnostics<cr>]])
 
 map('x','ga','<Plug>(EasyAlign)',{noremap = false})
 map('n','ga','<Plug>(EasyAlign)',{noremap = false})
@@ -101,6 +101,7 @@ map('o', ';p',':HopPattern<cr>')
 map('o', ';l',':HopLine<cr>')
 map('o', 'f', ':HopChar1Line<cr>')
 map('v', 'f',[[<cmd>lua require('hop').hint_words()<CR>]])
+map('v', ';l',[[<cmd>lua require('hop').hint_lines()<CR>]])
 
 
 g.wildfire_objects      = {"i'", 'i"', "i)", "i]", "i>","i}","ip","it"}
