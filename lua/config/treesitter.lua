@@ -1,5 +1,5 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = {"cpp","python","go","rust"},
   --highlight = {
     --enable = False,
     --use_languagetree = true,

@@ -66,6 +66,7 @@ local function init()
         'telescope-frecency.nvim',
         'telescope-fzf-native.nvim',
         "AckslD/nvim-neoclip.lua",
+        "LinArcX/telescope-command-palette.nvim",
       },
       wants = {
         'popup.nvim',
@@ -87,6 +88,7 @@ local function init()
       'nvim-telescope/telescope-fzf-native.nvim',
       run = 'make',
     },
+    { "LinArcX/telescope-command-palette.nvim" }
   }
 
   -- lsp

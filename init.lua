@@ -35,11 +35,11 @@ api.nvim_set_keymap('','<Space>','<Nop>',{noremap = true, silent = true})
 
 g.mapleader = ","
 g.maplocalleader = " "
-map('n','H','0')
+map('n','H','^')
 map('n','L','$')
-map('o','H','0')
+map('o','H','^')
 map('o','L','$')
-map('x','H','0')
+map('x','H','^')
 map('x','L','$')
 map('n','m','g*')
 map('n','Q','<esc>:q<cr>')
