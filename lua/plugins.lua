@@ -17,7 +17,12 @@ local packer = nil
 local function init()
   if packer == nil then
     packer =  require 'packer'
-    packer.init { disable_commands = true }
+    packer.init { 
+      disable_commands = true,
+      --git = {
+        --default_url_format = "git@github.com:%s"
+      --}
+    }
   end
 
   local use = packer.use
