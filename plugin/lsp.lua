@@ -119,9 +119,23 @@ local servers = {
   texlab = {
     settings = {
       texlab = {
+        build = {
+          executable = "latexmk",
+          args = { "-pdf", "-pvc","-synctex=1",  "%f"},
+          onSave = false,
+          isContinuous = true,
+          forwardSearchAfter = false,
+        },
         chktex = { onOpenAndSave = true },
         formatterLineLength = 100,
-        forwardSearch = { executable = 'okular', args = { '--unique', 'file:%p#src:%l%f' } },
+        forwardSearch = { 
+          executable = 'zathura', 
+          args = {
+            '--synctex-forward',
+            '%l:1:%f',
+            '%p',
+          } 
+        },
       },
     },
     commands = {

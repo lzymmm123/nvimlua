@@ -5,13 +5,13 @@ local opt = vim.opt
 local api = vim.api
 
 local function map(mode,lhs,rhs,opts)
-    local options = { noremap = true }
-    if opts then options = vim.tbl_extend('force',options,opts) end
-    vim.api.nvim_set_keymap(mode,lhs,rhs,options)
+  local options = { noremap = true }
+  if opts then options = vim.tbl_extend('force',options,opts) end
+  vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end
 
 local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 cmd [[au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape']]
@@ -26,6 +26,9 @@ opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
 opt.listchars = {eol = '↲', tab = '▸ ', trail = ' ',space = ' '}
+vim.opt.foldmethod = "indent"
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
 
 vim.o.completeopt = "menu,noselect"
 opt.timeoutlen=1000
@@ -115,12 +118,12 @@ g.asynctasks_term_reuse = 1
 
 
 local function luasnip_choice()
-    local snip = require('luasnip')
-    if snip.choice_active() then
-        print("yes")
-        return t '<Plug>luasnip-next-choice'
-    end
-    return t "<C-E>"
+  local snip = require('luasnip')
+  if snip.choice_active() then
+    print("yes")
+    return t '<Plug>luasnip-next-choice'
+  end
+  return t "<C-E>"
 end
 
 vim.cmd[[imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']]
@@ -146,5 +149,8 @@ end
 vim.cmd[[nmap <silent> cp <cmd>lua require("tools").replace()<cr>]]
 vim.cmd[[vmap <silent> cp <cmd>lua require("tools").replace()<cr>]]
 
+vim.cmd([[cnoreab re Reindent]])
+cmd [[command! Preserve lua require('tools').preserve('%s/\\s\\+$//ge')]]
+cmd [[command! Reindent lua require('tools').preserve('sil keepj normal! gg=G')]]
 
 --vim.cmd[[nmap <silent> <localleader>e :NvimTreeToggle<cr>]]

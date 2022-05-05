@@ -28,6 +28,7 @@ M.replace = function ()
     on_submit = function(value)
       local e = "s/"..w.."/"..value.."/g"
       vim.api.nvim_command(e)
+      vim.api.nvim_command("nohl")
     end,
   })
   input:mount()
@@ -60,6 +61,17 @@ M.get_lines = function(vmode)
     lines = vim.api.nvim_buf_get_lines(0,srow-1,erow, false)
   end
   print(vim.inspect(lines))
+end
+
+M.preserve = function (args)
+  local arguments = string.format("keepjumps keeppatterns execute %q",args)
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_command(arguments)
+  local lastline = vim.fn.line("$")
+  if line > lastline then
+    line = lastline
+  end
+  vim.api.nvim_win_set_cursor({0},{line,col})
 end
 
 return M

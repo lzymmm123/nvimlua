@@ -33,7 +33,7 @@ local function init()
    -- apperance
   use {"lukas-reineke/indent-blankline.nvim", config = [[require("config.apperance")]]}
   use {
-    'hoob3rt/lualine.nvim',
+    'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
     config = [[require('lualine').setup{options= {theme='nord'}}]]
   }
@@ -83,6 +83,7 @@ local function init()
       config = [[require('config.telescope')]],
       cmd = 'Telescope',
       module = 'telescope',
+      tag = 'nvim-0.6',
     },
     {
       'nvim-telescope/telescope-frecency.nvim',
