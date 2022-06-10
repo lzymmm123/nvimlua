@@ -61,6 +61,7 @@ local function init()
       require('neoclip').setup()
     end,
   }
+  use 'ojroques/vim-oscyank'
    -- Search
   use {
     {
@@ -110,13 +111,18 @@ local function init()
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      {'L3MON4D3/LuaSnip',config = [[require('config.snips')]]},
-      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-      {'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp'},
-      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      {'L3MON4D3/LuaSnip',
+        config = [[require('config.snips')]],
+      },
+      { 'saadparwaiz1/cmp_luasnip', after='nvim-cmp'},
+      { 'hrsh7th/cmp-buffer', after='nvim-cmp'},
+      {'hrsh7th/cmp-nvim-lsp', after='nvim-cmp'},
+      { 'hrsh7th/cmp-path', after='nvim-cmp' },
       --{ 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-      { 'lukas-reineke/cmp-rg' }
+      { 'lukas-reineke/cmp-rg', after='nvim-cmp' },
+      { 'uga-rosa/cmp-dictionary'
+      , after='nvim-cmp'
+      , config=[[require('config.dict')]]}
     },
     config = [[require('config.cmp')]],
     event = 'InsertEnter *',
@@ -131,20 +137,21 @@ local function init()
   }
 
     -- Highlights
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    requires = {
-      'nvim-treesitter/nvim-treesitter-refactor',
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    run = ':TSUpdate',
-    config = [[require('config.treesitter')]]
-  }
+  --use {
+    --'nvim-treesitter/nvim-treesitter',
+    --requires = {
+      --'nvim-treesitter/nvim-treesitter-refactor',
+      --'nvim-treesitter/nvim-treesitter-textobjects',
+    --},
+    --run = ':TSUpdate',
+    --config = [[require('config.treesitter')]]
+  --}
 
   use 'shaunsingh/nord.nvim'
 
   use {
     'akinsho/nvim-bufferline.lua',
+    tag = "v1.*",
     requires = {
       'kyazdani42/nvim-web-devicons',
       'famiu/bufdelete.nvim',
@@ -153,6 +160,11 @@ local function init()
     -- event = 'User ActuallyEditing',
     opt = false,
   }
+  --use {
+    --'romgrk/barbar.nvim',
+    --requires = {'kyazdani42/nvim-web-devicons'},
+    --config = [[require('config.barbar')]],
+  --}
 
   use {
     'kyazdani42/nvim-tree.lua',
@@ -182,6 +194,7 @@ local function init()
   ---- term
   use {
     "akinsho/toggleterm.nvim",
+    tag = "v1.*",
     config = [[require('config.term')]]
   }
 
@@ -199,6 +212,7 @@ local function init()
   ---- dev
   use 'MunifTanjim/nui.nvim'
 
+  use {'kevinhwang91/nvim-bqf'}
 
 end
 

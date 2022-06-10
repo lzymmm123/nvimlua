@@ -8,10 +8,10 @@ local function check_backspace()
 end
 
 local feedkeys = vim.fn.feedkeys
-local pumvisible = vim.fn.pumvisible
+--local pumvisible = vim.fn.pumvisible
 local replace_termcodes = vim.api.nvim_replace_termcodes
-local next_item_keys = replace_termcodes('<c-n>', true, true, true)
-local prev_item_keys = replace_termcodes('<c-p>', true, true, true)
+--local next_item_keys = replace_termcodes('<c-n>', true, true, true)
+--local prev_item_keys = replace_termcodes('<c-p>', true, true, true)
 local backspace_keys = replace_termcodes('<tab>', true, true, true)
 local snippet_next_keys = replace_termcodes('<plug>luasnip-expand-or-jump', true, true, true)
 local snippet_prev_keys = replace_termcodes('<plug>luasnip-jump-prev', true, true, true)
@@ -23,6 +23,7 @@ luasnip.config.setup{
 }
 
 vim.o.completeopt = "menu,menuone,noselect"
+
 
 cmp.setup {
   --completion = {
@@ -79,6 +80,8 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'rg' },
+    { name = 'dictionary', keyword_length = 2 },
     --{ name = 'nvim_lua' },
   },
 }
+

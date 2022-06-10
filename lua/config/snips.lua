@@ -7,31 +7,36 @@ local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
+local r = ls.restore_node
 local l = require("luasnip.extras").lambda
-local r = require("luasnip.extras").rep
+local rep = require("luasnip.extras").rep
 local p = require("luasnip.extras").partial
 local m = require("luasnip.extras").match
 local n = require("luasnip.extras").nonempty
 local dl = require("luasnip.extras").dynamic_lambda
+local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
+local conds = require("luasnip.extras.expand_conditions")
+
 
 -- Every unspecified option will be set to the default.
 ls.config.set_config({
-	history = true,
-	-- Update more often, :h events for more info.
-	updateevents = "TextChanged",
-	ext_opts = {
-		[types.choiceNode] = {
-			active = {
-				virt_text = { { "choiceNode", "Comment" } },
-			},
-		},
-	},
-	-- treesitter-hl has 100, use something higher (default is 200).
-	ext_base_prio = 300,
-	-- minimal increase in priority.
-	ext_prio_increase = 1,
-	enable_autosnippets = true,
+  history = true,
+  -- Update more often, :h events for more info.
+  updateevents = "TextChanged",
+  ext_opts = {
+    [types.choiceNode] = {
+      active = {
+        virt_text = { { "choiceNode", "Comment" } },
+      },
+    },
+  },
+  -- treesitter-hl has 100, use something higher (default is 200).
+  ext_base_prio = 300,
+  -- minimal increase in priority.
+  ext_prio_increase = 1,
+  enable_autosnippets = true,
 })
 
 ls.config.setup({
@@ -161,197 +166,6 @@ local date_input = function(args, state, fmt)
 	return sn(nil, i(1, os.date(fmt)))
 end
 
-ls.snippets = {
-	-- When trying to expand a snippet, luasnip first searches the tables for
-	-- each filetype specified in 'filetype' followed by 'all'.
-	-- If ie. the filetype is 'lua.c'
-	--     - luasnip.lua
-	--     - luasnip.c
-	--     - luasnip.all
-	-- are searched in that order.
-	all = {
-		-- trigger is fn.
-		-- Use a dynamic_node to interpolate the output of a
-		-- function (see date_input above) into the initial
-		-- value of an insert_node.
-		-- Parsing snippets: First parameter: Snippet-Trigger, Second: Snippet body.
-		-- Placeholders are parsed into choices with 1. the placeholder text(as a snippet) and 2. an empty string.
-		-- This means they are not SELECTed like in other editors/Snippet engines.
-		ls.parser.parse_snippet(
-			"lspsyn",
-			"Wow! This ${1:Stuff} really ${2:works. ${3:Well, a bit.}}"
-		),
-
-		-- When wordTrig is set to false, snippets may also expand inside other words.
-		ls.parser.parse_snippet(
-			{ trig = "te", wordTrig = false },
-			"${1:cond} ? ${2:true} : ${3:false}"
-		),
-
-		-- When regTrig is set, trig is treated like a pattern, this snippet will expand after any number.
-		--ls.parser.parse_snippet({ trig = "%d", regTrig = true }, "A Number!!"),
-
-		-- The last entry of args passed to the user-function is the surrounding snippet.
-		-- It's possible to use capture-groups inside regex-triggers.
-		-- Use a function to execute any shell command and print its text.
-		--s({trig = "sh(%w*)", regTrig = true}, {t(""),i(2), f(bash, {2}, "ls"),i(1)}),
-		-- Short version for applying String transformations using function nodes.
-		s("transform", {
-			i(1, "initial text"),
-			t({ "", "" }),
-			-- lambda nodes accept an l._1,2,3,4,5, which in turn accept any string transformations.
-			-- This list will be applied in order to the first node given in the second argument.
-			l(l._1:match("[^i]*$"):gsub("i", "o"):gsub(" ", "_"):upper(), 1),
-		}),
-		s("transform2", {
-			i(1, "initial text"),
-			t("::"),
-			i(2, "replacement for e"),
-			t({ "", "" }),
-			-- Lambdas can also apply transforms USING the text of other nodes:
-			l(l._1:gsub("e", l._2), { 1, 2 }),
-		}),
-		--s({ trig = "trafo(%d+)", regTrig = true }, {
-			---- env-variables and captures can also be used:
-			--l(l.CAPTURE1:gsub("1", l.TM_FILENAME), {}),
-		--}),
-		-- Set store_selection_keys = "<Tab>" (for example) in your
-		-- luasnip.config.setup() call to access TM_SELECTED_TEXT. In
-		-- this case, select a URL, hit Tab, then expand this snippet.
-		s("link_url", {
-			t('<a href="'),
-			f(function(args)
-				return args[1].env.TM_SELECTED_TEXT[1] or {}
-			end, {}),
-			t('">'),
-			i(1),
-			t("</a>"),
-			i(0),
-		}),
-		-- Shorthand for repeating the text in a given node.
-		s("repeat", { i(1, "text"), t({ "", "" }), r(1) }),
-		-- Directly insert the ouput from a function evaluated at runtime.
-		s("part", p(os.date, "%Y")),
-		-- use matchNodes to insert text based on a pattern/function/lambda-evaluation.
-		s("mat", {
-			i(1, { "sample_text" }),
-			t(": "),
-			m(1, "%d", "contains a number", "no number :("),
-		}),
-		-- The inserted text defaults to the first capture group/the entire
-		-- match if there are none
-		s("mat2", {
-			i(1, { "sample_text" }),
-			t(": "),
-			m(1, "[abc][abc][abc]"),
-		}),
-		-- It is even possible to apply gsubs' or other transformations
-		-- before matching.
-		s("mat3", {
-			i(1, { "sample_text" }),
-			t(": "),
-			m(
-				1,
-				l._1:gsub("[123]", ""):match("%d"),
-				"contains a number that isn't 1, 2 or 3!"
-			),
-		}),
-		-- `match` also accepts a function, which in turn accepts a string
-		-- (text in node, \n-concatted) and returns any non-nil value to match.
-		-- If that value is a string, it is used for the default-inserted text.
-		s("mat4", {
-			i(1, { "sample_text" }),
-			t(": "),
-			m(1, function(text)
-				return (#text % 2 == 0 and text) or nil
-			end),
-		}),
-		-- The nonempty-node inserts text depending on whether the arg-node is
-		-- empty.
-		s("nempty", {
-			i(1, "sample_text"),
-			n(1, "i(1) is not empty!"),
-		}),
-		-- dynamic lambdas work exactly like regular lambdas, except that they
-		-- don't return a textNode, but a dynamicNode containing one insertNode.
-		-- This makes it easier to dynamically set preset-text for insertNodes.
-		s("dl1", {
-			i(1, "sample_text"),
-			t({ ":", "" }),
-			dl(2, l._1, 1),
-		}),
-		-- Obviously, it's also possible to apply transformations, just like lambdas.
-		s("dl2", {
-			i(1, "sample_text"),
-			i(2, "sample_text_2"),
-			t({ "", "" }),
-			dl(3, l._1:gsub("\n", " linebreak ") .. l._2, { 1, 2 }),
-		}),
-	},
-	java = {
-		-- Very long example for a java class.
-		s("fn", {
-			d(6, jdocsnip, { 2, 4, 5 }),
-			t({ "", "" }),
-			c(1, {
-				t("public "),
-				t("private "),
-			}),
-			c(2, {
-				t("void"),
-				t("String"),
-				t("char"),
-				t("int"),
-				t("double"),
-				t("boolean"),
-				i(nil, ""),
-			}),
-			t(" "),
-			i(3, "myFunc"),
-			t("("),
-			i(4),
-			t(")"),
-			c(5, {
-				t(""),
-				sn(nil, {
-					t({ "", " throws " }),
-					i(1),
-				}),
-			}),
-			t({ " {", "\t" }),
-			i(0),
-			t({ "", "}" }),
-		}),
-	},
-	tex = {
-		-- rec_ls is self-referencing. That makes this snippet 'infinite' eg. have as many
-		-- \item as necessary by utilizing a choiceNode.
-		s("ls", {
-			t({ "\\begin{itemize}", "\t\\item " }),
-			i(1),
-			d(2, rec_ls, {}),
-			t({ "", "\\end{itemize}" }),
-		}),
-	},
-
-  cpp = {
-  },
-  go = {}
-}
-
-local function snip_merge(filetype) 
-  local snip = require('config.snippets.' .. filetype)
-  if ls.snippets[filetype] == nil then
-    ls.snippets[filetype] = {}
-  end
-  if snip == nil then
-    return
-  end
-  table.foreach(snip,function(_,v) table.insert(ls.snippets[filetype],v) end)
-end
-snip_merge('cpp')
-snip_merge('c')
-snip_merge('go')
 
 -- autotriggered snippets have to be defined in a separate table, luasnip.autosnippets.
 ls.autosnippets = {
@@ -379,3 +193,4 @@ require("luasnip/loaders/from_vscode").load({ include = { "python" } }) -- Load 
 
 -- You can also use lazy loading so you only get in memory snippets of languages you use
 require("luasnip/loaders/from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
+require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/lua/snippets"}) -- You can pass { paths = "./my-snippets/"} as well

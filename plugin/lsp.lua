@@ -55,12 +55,12 @@ local function on_attach(client)
   buf_keymap(0, 'n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', keymap_opts)
   buf_keymap(0, 'n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', keymap_opts)
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.document_formatting then
     buf_keymap(0, 'n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<cr>', keymap_opts)
   end
 
   cmd 'augroup lsp_aucmds'
-  if client.resolved_capabilities.document_highlight == true then
+  if client.server_capabilities.document_highlight == true then
     cmd 'au CursorHold <buffer> lua vim.lsp.buf.document_highlight()'
     cmd 'au CursorMoved <buffer> lua vim.lsp.buf.clear_references()'
   end
